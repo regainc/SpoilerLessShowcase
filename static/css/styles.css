@@ -48,3 +48,9 @@ body {
 .bg-accent {
     background-color: #FFD700;
 }
+
+.movie-image {
+    width: 300px;
+    height: 450px;
+    object-fit: cover;
+}

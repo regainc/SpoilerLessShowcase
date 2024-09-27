@@ -18,37 +18,12 @@ def search_external_api(query):
     if response.status_code == 200:
         results = response.json()['results']
         if results:
-            return results[0]  # Return the first result
+            result = results[0]
+            # Limit overview to 100 characters
+            if 'overview' in result:
+                result['overview'] = (result['overview'][:97] + '...') if len(result['overview']) > 100 else result['overview']
+            return result
     return None
-
-def generate_instant_analysis(item):
-    analysis = ""
-    if item['media_type'] == 'tv':
-        analysis += "Bu dizi, "
-    else:
-        analysis += "Bu film, "
-
-    if item.get('vote_average', 0) >= 8.0:
-        analysis += "izleyiciler tarafından oldukça beğenilen "
-    elif item.get('vote_average', 0) >= 6.0:
-        analysis += "izleyiciler tarafından genel olarak olumlu karşılanan "
-    else:
-        analysis += "izleyiciler arasında çeşitli tepkiler alan "
-
-    genres = item.get('genre_ids', [])
-    if 28 in genres:  # Action
-        analysis += "aksiyon dolu sahneleriyle dikkat çeken "
-    if 18 in genres:  # Drama
-        analysis += "duygusal derinliği olan "
-    if 35 in genres:  # Comedy
-        analysis += "eğlenceli ve gülümseten "
-    if 878 in genres:  # Science Fiction
-        analysis += "geleceğe dair ilginç fikirler sunan "
-
-    analysis += f"bir yapım. {item.get('vote_average', 0)} puanlık değerlendirmesiyle, "
-    analysis += "izleyicilerin ilgisini çekmeyi başarıyor."
-
-    return analysis
 
 @app.route('/')
 def index():
@@ -61,7 +36,6 @@ def search():
     result = search_external_api(query)
     
     if result:
-        result['ai_analysis'] = generate_instant_analysis(result)
         return jsonify(result)
     
     return jsonify({'error': 'No results found'}), 404
