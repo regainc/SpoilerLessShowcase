@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV Show and Movie Info</title>
+    <title>TV Dizisi ve Film Bilgisi</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -14,17 +14,17 @@
 
     <header class="hero-section">
         <div class="container mx-auto px-4">
-            <h1 class="hero-title">TV Show and Movie Info</h1>
-            <p class="hero-subtitle">Discover spoiler-free information about your favorite shows and movies</p>
+            <h1 class="hero-title">TV Dizisi ve Film Bilgisi</h1>
+            <p class="hero-subtitle">Favori dizi ve filmleriniz hakkında spoiler içermeyen bilgiler keşfedin</p>
         </div>
     </header>
 
     <nav class="bg-accent text-gray-900 py-4">
         <div class="container mx-auto px-4">
             <ul class="flex justify-center space-x-6">
-                <li><a href="#search" class="hover:text-white">Search</a></li>
-                <li><a href="#about" class="hover:text-white">About Us</a></li>
-                <li><a href="#suggestions" class="hover:text-white">Suggestions</a></li>
+                <li><a href="#search" class="font-bold hover:text-white">Arama</a></li>
+                <li><a href="#about" class="font-bold hover:text-white">Hakkımızda</a></li>
+                <li><a href="#suggestions" class="font-bold hover:text-white">Öneriler</a></li>
             </ul>
         </div>
     </nav>
@@ -33,10 +33,10 @@
         <section id="search" class="mb-12">
             <form id="search-form" class="mb-8 relative">
                 <div class="modern-search-bar">
-                    <input type="text" id="search-input" placeholder="Enter a TV show or movie title" required>
+                    <input type="text" id="search-input" placeholder="Bir TV dizisi veya film adı girin" required>
                     <button type="submit">
                         <i class="fas fa-search mr-2"></i>
-                        Search
+                        Ara
                     </button>
                 </div>
                 <div id="autocomplete-container" class="absolute w-full mt-1 z-10"></div>
@@ -50,29 +50,29 @@
         </section>
 
         <section id="about" class="mb-12">
-            <h2 class="text-2xl font-bold mb-4">About Us</h2>
+            <h2 class="text-2xl font-bold mb-4">Hakkımızda</h2>
             <p class="text-gray-300">
-                We are passionate about providing spoiler-free information about TV shows and movies. Our goal is to help you discover new content without ruining the experience. We use custom descriptions to give you a taste of what to expect without giving away any crucial plot points.
+                TV dizileri ve filmler hakkında spoiler içermeyen bilgiler sunma konusunda tutkulu bir ekibiz. Amacımız, izleme deneyiminizi bozmadan yeni içerikler keşfetmenize yardımcı olmaktır. Özel açıklamalarımızla, önemli olay örgüsü noktalarını açığa çıkarmadan ne bekleyeceğinize dair bir fikir veriyoruz.
             </p>
         </section>
 
         <section id="suggestions">
-            <h2 class="text-2xl font-bold mb-4">Suggestions</h2>
+            <h2 class="text-2xl font-bold mb-4">Öneriler</h2>
             <p class="text-gray-300 mb-4">
-                Looking for something to watch? Here are some popular titles you might enjoy:
+                İzleyecek bir şey mi arıyorsunuz? İşte size yardımcı olabilecek bazı ipuçları:
             </p>
             <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <li class="bg-gray-800 p-4 rounded-lg">
-                    <h3 class="text-xl font-bold mb-2">Game of Thrones</h3>
-                    <p class="text-gray-400">Epic fantasy series with dragons, political intrigue, and battles for power.</p>
+                    <h3 class="text-xl font-bold mb-2">Popüler Diziler</h3>
+                    <p class="text-gray-400">Game of Thrones, Stranger Things gibi popüler dizileri arayarak başlayabilirsiniz.</p>
                 </li>
                 <li class="bg-gray-800 p-4 rounded-lg">
-                    <h3 class="text-xl font-bold mb-2">Stranger Things</h3>
-                    <p class="text-gray-400">1980s-set sci-fi horror series featuring a group of kids facing supernatural forces.</p>
+                    <h3 class="text-xl font-bold mb-2">Klasik Filmler</h3>
+                    <p class="text-gray-400">The Godfather, Pulp Fiction gibi klasik filmleri keşfedebilirsiniz.</p>
                 </li>
                 <li class="bg-gray-800 p-4 rounded-lg">
-                    <h3 class="text-xl font-bold mb-2">Breaking Bad</h3>
-                    <p class="text-gray-400">Gripping crime drama about a chemistry teacher turned methamphetamine producer.</p>
+                    <h3 class="text-xl font-bold mb-2">Tür Bazlı Arama</h3>
+                    <p class="text-gray-400">Aksiyon, komedi, dram gibi favori türlerinizi arayarak yeni içerikler bulabilirsiniz.</p>
                 </li>
             </ul>
         </section>
@@ -80,7 +80,7 @@
 
     <footer class="bg-accent text-gray-900 py-4">
         <div class="container mx-auto px-4 text-center">
-            &copy; 2023 TV Show and Movie Info. All rights reserved.
+            &copy; 2023 TV Dizisi ve Film Bilgisi. Tüm hakları saklıdır.
         </div>
     </footer>
 

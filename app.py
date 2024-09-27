@@ -11,7 +11,6 @@ def generate_custom_description(title, media_type):
     descriptions = {
         "Game of Thrones": "Yedi krallığın kontrolü için mücadele eden aileler, entrikalar, savaşlar ve ejderhalar. Epik bir fantezi dünyasında geçen bu dizi, izleyiciyi büyüleyici bir maceraya sürüklüyor.",
         "Stranger Things": "1980'lerde geçen bu dizi, küçük bir kasabada kaybolan bir çocuğu arayan arkadaşlarının, doğaüstü güçlere sahip gizemli bir kızla tanışmasını konu alıyor.",
-        "Breaking Bad": "Kanser teşhisi konan bir kimya öğretmeninin, ailesinin geleceğini güvence altına almak için uyuşturucu işine girmesini anlatan, gerilim dolu bir dizi.",
         "The Crown": "İngiliz Kraliyet ailesinin yaşamını ve kraliçe II. Elizabeth'in hükümdarlığını konu alan tarihi bir drama.",
         "Black Mirror": "Teknolojinin insan hayatı üzerindeki karanlık ve beklenmedik etkilerini işleyen, her bölümü bağımsız bir hikaye anlatan bilim kurgu antoloji dizisi.",
         "Inception": "Rüyalara girip bilinçaltından bilgi çalabilen bir hırsızın, bir CEO'nun zihnine bir fikir yerleştirme görevini konu alan, zihin bükücü bir bilim kurgu filmi.",
@@ -90,6 +89,11 @@ def autocomplete():
     if response.status_code == 200:
         results = response.json()['results']
         suggestions = [result['title'] if 'title' in result else result['name'] for result in results[:5]]
+        
+        # Return an empty list if the query matches a full title
+        if query in suggestions:
+            return jsonify([])
+        
         return jsonify(suggestions)
     
     return jsonify([])

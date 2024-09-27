@@ -5,9 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingSpinner = document.getElementById('loading-spinner');
     const autocompleteContainer = document.getElementById('autocomplete-container');
     const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const navLinks = document.querySelectorAll('nav a');
 
     searchInput.addEventListener('input', debounce(handleAutocomplete, 300));
     darkModeToggle.addEventListener('click', toggleDarkMode);
+    navLinks.forEach(link => link.addEventListener('click', handleNavClick));
 
     searchForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -79,13 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         resultContainer.classList.remove('hidden');
         
-        // Trigger reflow to ensure the animation runs
         resultContainer.offsetHeight;
         
-        // Add animation classes
         resultContainer.firstElementChild.classList.remove('opacity-0', 'translate-y-4');
 
-        // Add event listener for the "More Details" button
         document.getElementById('more-details-btn').addEventListener('click', fetchMoreDetails);
     }
 
@@ -135,10 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         resultContainer.classList.remove('hidden');
         
-        // Trigger reflow to ensure the animation runs
         resultContainer.offsetHeight;
         
-        // Add animation classes
         resultContainer.firstElementChild.classList.remove('opacity-0', 'translate-y-4');
     }
 
@@ -160,7 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`/autocomplete?query=${encodeURIComponent(query)}`);
             if (response.ok) {
                 const suggestions = await response.json();
-                displayAutocompleteSuggestions(suggestions);
+                if (suggestions.length === 0 || suggestions.includes(query)) {
+                    autocompleteContainer.innerHTML = '';
+                } else {
+                    displayAutocompleteSuggestions(suggestions);
+                }
             }
         } catch (error) {
             console.error('Error fetching autocomplete suggestions:', error);
@@ -205,6 +206,15 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             icon.classList.remove('fa-sun');
             icon.classList.add('fa-moon');
+        }
+    }
+
+    function handleNavClick(e) {
+        e.preventDefault();
+        const targetId = e.target.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
