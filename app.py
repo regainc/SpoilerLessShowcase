@@ -53,5 +53,26 @@ def search():
     
     return jsonify({'error': 'No results found'}), 404
 
+@app.route('/autocomplete', methods=['GET'])
+def autocomplete():
+    query = request.args.get('query', '')
+    if len(query) < 2:
+        return jsonify([])
+
+    search_url = f"{TMDB_BASE_URL}/search/multi"
+    params = {
+        'api_key': TMDB_API_KEY,
+        'query': query,
+        'language': 'tr-TR'
+    }
+    response = requests.get(search_url, params=params)
+    
+    if response.status_code == 200:
+        results = response.json()['results']
+        suggestions = [result['title'] if 'title' in result else result['name'] for result in results[:5]]
+        return jsonify(suggestions)
+    
+    return jsonify([])
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
