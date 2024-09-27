@@ -19,9 +19,22 @@ def search_external_api(query):
         results = response.json()['results']
         if results:
             result = results[0]
-            # Limit overview to 100 characters
+            # Increase overview character limit to 560
             if 'overview' in result:
-                result['overview'] = (result['overview'][:97] + '...') if len(result['overview']) > 100 else result['overview']
+                result['overview'] = (result['overview'][:557] + '...') if len(result['overview']) > 560 else result['overview']
+            
+            # Include genre information
+            if result['media_type'] in ['movie', 'tv']:
+                genre_url = f"{TMDB_BASE_URL}/{result['media_type']}/{result['id']}"
+                genre_params = {
+                    'api_key': TMDB_API_KEY,
+                    'language': 'tr-TR'
+                }
+                genre_response = requests.get(genre_url, params=genre_params)
+                if genre_response.status_code == 200:
+                    genre_data = genre_response.json()
+                    result['genres'] = [genre['name'] for genre in genre_data.get('genres', [])]
+            
             return result
     return None
 

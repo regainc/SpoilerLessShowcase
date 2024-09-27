@@ -1,8 +1,17 @@
 @import 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css';
 
+:root {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --accent-color: #FFD700;
+    --accent-color-hover: #E50914;
+}
+
 body {
-    background-color: #000000;
-    color: #FFD700;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+    transition: background-color 0.3s ease;
 }
 
 .hidden {
@@ -14,43 +23,66 @@ body {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border-left-color: #FFD700;
+    border-left-color: var(--accent-color);
     animation: spin 1s ease infinite;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .btn-primary {
-    background-color: #FFD700;
-    color: #000000;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: #FFA500;
+    background-color: var(--accent-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(229, 9, 20, 0.2);
 }
 
 .card {
-    background-color: #1a1a1a;
-    border: 1px solid #FFD700;
+    background-color: #2a2a2a;
+    border: 1px solid var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
 }
 
 .text-accent {
-    color: #FFD700;
+    color: var(--accent-color);
 }
 
 .bg-accent {
-    background-color: #FFD700;
+    background-color: var(--accent-color);
 }
 
-.movie-image {
-    width: 300px;
-    height: 450px;
-    object-fit: cover;
+input[type="text"] {
+    background-color: #2a2a2a;
+    color: var(--text-color);
+    border: 2px solid var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-color-hover);
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
+}
+
+#result-container {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+#result-container:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
 }
