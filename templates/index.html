@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Show and Movie Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <header class="bg-blue-600 text-white py-4">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold">TV Show and Movie Info</h1>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <form id="search-form" class="mb-8">
+            <div class="flex">
+                <input type="text" id="search-input" placeholder="Enter a TV show or movie title" required
+                       class="flex-grow px-4 py-2 rounded-l-lg border-t border-b border-l text-gray-800 border-gray-200 bg-white">
+                <button type="submit"
+                        class="px-8 rounded-r-lg bg-blue-600 text-white font-bold p-4 uppercase border-blue-600 border-t border-b border-r">
+                    Search
+                </button>
+            </div>
+        </form>
+
+        <div id="loading-spinner" class="hidden flex justify-center items-center">
+            <div class="spinner"></div>
+        </div>
+
+        <div id="result-container" class="hidden bg-white shadow-md rounded-lg p-6"></div>
+    </main>
+
+    <footer class="bg-gray-200 py-4">
+        <div class="container mx-auto px-4 text-center text-gray-600">
+            &copy; 2023 TV Show and Movie Info. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
