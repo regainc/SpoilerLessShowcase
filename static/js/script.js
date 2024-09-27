@@ -110,24 +110,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const productionCompanies = data.production_companies ? data.production_companies.map(company => company.name).join(', ') : 'N/A';
 
         const popupContent = `
-            <div class="popup-content bg-gray-800 rounded-lg p-6 animate-fade-in">
-                <h3 class="text-xl font-bold text-accent mb-4">Ek Bilgiler</h3>
-                <p><span class="font-bold">Yayın Tarihi:</span> ${releaseDate}</p>
-                <p><span class="font-bold">Süre:</span> ${runtime}</p>
-                <p><span class="font-bold">Durum:</span> ${status}</p>
-                <p><span class="font-bold">Yapım Şirketleri:</span> ${productionCompanies}</p>
-                <button id="close-popup" class="mt-4 bg-accent text-gray-900 px-4 py-2 rounded hover:bg-accent-hover transition-colors duration-300">Kapat</button>
+            <div class="popup-content bg-gray-800 bg-opacity-90 rounded-lg p-8 border-4 border-accent shadow-2xl">
+                <h3 class="text-2xl font-bold text-accent mb-6">Ek Bilgiler</h3>
+                <div class="space-y-4">
+                    <p class="text-lg"><span class="font-semibold text-accent">Yayın Tarihi:</span> <span class="text-gray-200">${releaseDate}</span></p>
+                    <p class="text-lg"><span class="font-semibold text-accent">Süre:</span> <span class="text-gray-200">${runtime}</span></p>
+                    <p class="text-lg"><span class="font-semibold text-accent">Durum:</span> <span class="text-gray-200">${status}</span></p>
+                    <p class="text-lg"><span class="font-semibold text-accent">Yapım Şirketleri:</span> <span class="text-gray-200">${productionCompanies}</span></p>
+                </div>
+                <button id="close-popup" class="mt-8 bg-accent text-gray-900 px-6 py-3 rounded-full text-lg font-bold hover:bg-accent-hover transition-colors duration-300">Kapat</button>
             </div>
         `;
 
         const popupOverlay = document.createElement('div');
-        popupOverlay.className = 'popup-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        popupOverlay.className = 'popup-overlay fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50';
         popupOverlay.innerHTML = popupContent;
 
         document.body.appendChild(popupOverlay);
 
         document.getElementById('close-popup').addEventListener('click', () => {
-            document.body.removeChild(popupOverlay);
+            closePopup(popupOverlay);
         });
 
         // Add show class after a short delay to trigger the transition

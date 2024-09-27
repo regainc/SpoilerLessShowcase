@@ -138,6 +138,7 @@ input[type="text"]:focus {
 }
 
 .popup-overlay {
+    background-color: rgba(0, 0, 0, 0.8);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
@@ -148,11 +149,20 @@ input[type="text"]:focus {
 
 .popup-content {
     transform: scale(0.9);
-    transition: transform 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Arial', sans-serif;
 }
 
 .popup-overlay.show .popup-content {
     transform: scale(1);
+}
+
+.popup-content h3 {
+    font-family: 'Georgia', serif;
+}
+
+.popup-content p {
+    line-height: 1.6;
 }
 
 @keyframes fade-in {
