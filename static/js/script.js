@@ -114,27 +114,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const popularity = data.popularity ? data.popularity.toFixed(1) : 'N/A';
 
         const popupContent = `
-            <div class="popup-content bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg p-8 border-4 border-accent shadow-2xl max-w-4xl w-full mx-4">
-                <h3 class="text-3xl font-bold text-accent mb-6">Ek Bilgiler</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <p class="text-lg"><span class="font-semibold text-accent">📅 Yayın Tarihi:</span> <span class="text-gray-200">${releaseDate}</span></p>
-                        <p class="text-lg"><span class="font-semibold text-accent">⏱️ Süre:</span> <span class="text-gray-200">${runtime}</span></p>
-                        <p class="text-lg"><span class="font-semibold text-accent">🎬 Durum:</span> <span class="text-gray-200">${status}</span></p>
-                        <p class="text-lg"><span class="font-semibold text-accent">🏢 Yapım Şirketleri:</span> <span class="text-gray-200">${productionCompanies}</span></p>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-lg"><span class="font-semibold text-accent">🌐 Orijinal Dil:</span> <span class="text-gray-200">${originalLanguage}</span></p>
-                        <p class="text-lg"><span class="font-semibold text-accent">${data.media_type === 'movie' ? '💰 Bütçe:' : '🔢 Sezon Sayısı:'}</span> <span class="text-gray-200">${data.media_type === 'movie' ? budget : seasons}</span></p>
-                        <p class="text-lg"><span class="font-semibold text-accent">📊 Popülerlik:</span> <span class="text-gray-200">${popularity}</span></p>
-                    </div>
+            <div class="popup-content bg-gray-900 rounded-lg p-6 relative">
+                <button id="close-popup" class="absolute top-2 right-2 text-gray-500 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <h3 class="text-2xl font-bold text-accent mb-4">Ek Bilgiler</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <p><span class="font-semibold text-accent">Yayın Tarihi:</span> <span class="text-gray-300">${releaseDate}</span></p>
+                    <p><span class="font-semibold text-accent">Süre:</span> <span class="text-gray-300">${runtime}</span></p>
+                    <p><span class="font-semibold text-accent">Durum:</span> <span class="text-gray-300">${status}</span></p>
+                    <p><span class="font-semibold text-accent">Yapım Şirketleri:</span> <span class="text-gray-300">${productionCompanies}</span></p>
+                    <p><span class="font-semibold text-accent">Orijinal Dil:</span> <span class="text-gray-300">${originalLanguage}</span></p>
+                    <p><span class="font-semibold text-accent">${data.media_type === 'movie' ? 'Bütçe:' : 'Sezon Sayısı:'}</span> <span class="text-gray-300">${data.media_type === 'movie' ? budget : seasons}</span></p>
+                    <p><span class="font-semibold text-accent">Popülerlik:</span> <span class="text-gray-300">${popularity}</span></p>
                 </div>
-                <button id="close-popup" class="mt-8 bg-accent text-gray-900 px-6 py-3 rounded-full text-lg font-bold hover:bg-accent-hover transition-colors duration-300 hover:scale-105 transform">Kapat</button>
             </div>
         `;
 
         const popupOverlay = document.createElement('div');
-        popupOverlay.className = 'popup-overlay fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50';
+        popupOverlay.className = 'popup-overlay fixed inset-0 flex items-center justify-center z-50';
         popupOverlay.innerHTML = popupContent;
 
         document.body.appendChild(popupOverlay);
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         popupOverlay.classList.remove('show');
         setTimeout(() => {
             document.body.removeChild(popupOverlay);
-        }, 300); // Wait for the transition to complete before removing the element
+        }, 300);
     }
 
     function displayError(message) {
