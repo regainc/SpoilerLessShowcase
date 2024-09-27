@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Stranger Things",
+      "overview": "When a young boy disappears, his mother, a police chief, and his friends must confront terrifying forces in order to get him back.",
+      "poster_path": "/static/img/stranger_things.jpg",
+      "rating": 8.7,
+      "type": "TV Show",
+      "genres": ["Drama", "Fantasy", "Horror"]
+    },
+    {
+      "id": 2,
+      "title": "Inception",
+      "overview": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+      "poster_path": "/static/img/inception.jpg",
+      "rating": 8.8,
+      "type": "Movie",
+      "genres": ["Action", "Adventure", "Sci-Fi"]
+    },
+    {
+      "id": 3,
+      "title": "Breaking Bad",
+      "overview": "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future.",
+      "poster_path": "/static/img/breaking_bad.jpg",
+      "rating": 9.5,
+      "type": "TV Show",
+      "genres": ["Crime", "Drama", "Thriller"]
+    },
+    {
+      "id": 4,
+      "title": "The Shawshank Redemption",
+      "overview": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+      "poster_path": "/static/img/shawshank_redemption.jpg",
+      "rating": 9.3,
+      "type": "Movie",
+      "genres": ["Drama"]
+    },
+    {
+      "id": 5,
+      "title": "Friends",
+      "overview": "Follows the personal and professional lives of six twenty to thirty-something-year-old friends living in Manhattan.",
+      "poster_path": "/static/img/friends.jpg",
+      "rating": 8.9,
+      "type": "TV Show",
+      "genres": ["Comedy", "Romance"]
+    }
+  ]
+}
