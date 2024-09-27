@@ -16,6 +16,38 @@ def search_local_data(query):
             return item
     return None
 
+def generate_ai_analysis(item):
+    analysis = ""
+    if item['type'] == 'TV Show':
+        analysis += "Bu dizi, "
+    else:
+        analysis += "Bu film, "
+
+    if item['rating'] >= 9.0:
+        analysis += "izleyiciler tarafından olağanüstü beğenilen "
+    elif item['rating'] >= 8.0:
+        analysis += "oldukça popüler ve beğenilen "
+    else:
+        analysis += "izleyiciler tarafından genel olarak olumlu karşılanan "
+
+    if 'Aksiyon' in item['genres']:
+        analysis += "heyecan dolu sahneleriyle dikkat çeken "
+    if 'Drama' in item['genres']:
+        analysis += "duygusal derinliği olan "
+    if 'Komedi' in item['genres']:
+        analysis += "eğlenceli ve gülümseten "
+    if 'Bilim Kurgu' in item['genres']:
+        analysis += "geleceğe dair ilginç fikirler sunan "
+
+    analysis += f"bir yapım. {item['rating']} puanlık değerlendirmesiyle, "
+
+    if len(item['genres']) > 1:
+        analysis += f"{', '.join(item['genres'][:-1])} ve {item['genres'][-1]} türlerini başarıyla harmanlıyor."
+    else:
+        analysis += f"{item['genres'][0]} türünün güzel bir örneği."
+
+    return analysis
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -27,6 +59,7 @@ def search():
     result = search_local_data(query)
     
     if result:
+        result['ai_analysis'] = generate_ai_analysis(result)
         return jsonify(result)
     
     return jsonify({'error': 'No results found'}), 404

@@ -44,6 +44,96 @@
       "rating": 8.9,
       "type": "TV Show",
       "genres": ["Komedi", "Romantik"]
+    },
+    {
+      "id": 6,
+      "title": "Game of Thrones",
+      "overview": "Yedi krallığı yönetmek için mücadele eden asil aileler, eski düşmanlar ve efsanevi yaratıkların hikayesi.",
+      "poster_path": "/static/img/game_of_thrones.jpg",
+      "rating": 9.3,
+      "type": "TV Show",
+      "genres": ["Aksiyon", "Macera", "Drama"]
+    },
+    {
+      "id": 7,
+      "title": "The Matrix",
+      "overview": "Bir bilgisayar programcısı, gerçekliğin ne olduğunu sorgulayan bir grup isyancıya katılır.",
+      "poster_path": "/static/img/the_matrix.jpg",
+      "rating": 8.7,
+      "type": "Film",
+      "genres": ["Aksiyon", "Bilim Kurgu"]
+    },
+    {
+      "id": 8,
+      "title": "The Crown",
+      "overview": "Kraliçe II. Elizabeth'in hayatını ve İngiliz Kraliyet ailesinin iç yüzünü anlatan tarihi drama.",
+      "poster_path": "/static/img/the_crown.jpg",
+      "rating": 8.7,
+      "type": "TV Show",
+      "genres": ["Biyografi", "Drama", "Tarih"]
+    },
+    {
+      "id": 9,
+      "title": "Pulp Fiction",
+      "overview": "Los Angeles'ta geçen, birbirine bağlı suç hikayeleri ve karakterlerin hayatlarını anlatan kült film.",
+      "poster_path": "/static/img/pulp_fiction.jpg",
+      "rating": 8.9,
+      "type": "Film",
+      "genres": ["Suç", "Drama"]
+    },
+    {
+      "id": 10,
+      "title": "Black Mirror",
+      "overview": "Modern toplumun ve yeni teknolojilerin karanlık yüzünü ele alan antoloji dizisi.",
+      "poster_path": "/static/img/black_mirror.jpg",
+      "rating": 8.8,
+      "type": "TV Show",
+      "genres": ["Bilim Kurgu", "Gerilim", "Drama"]
+    },
+    {
+      "id": 11,
+      "title": "The Godfather",
+      "overview": "Bir mafya ailesinin başının, oğlunu yasadışı imparatorluğunun başına geçirmek için verdiği mücadele.",
+      "poster_path": "/static/img/the_godfather.jpg",
+      "rating": 9.2,
+      "type": "Film",
+      "genres": ["Suç", "Drama"]
+    },
+    {
+      "id": 12,
+      "title": "Chernobyl",
+      "overview": "1986 Çernobil nükleer felaketinin ardından yaşanan olayları ve kurtarma çabalarını anlatan mini dizi.",
+      "poster_path": "/static/img/chernobyl.jpg",
+      "rating": 9.4,
+      "type": "TV Show",
+      "genres": ["Drama", "Tarih", "Gerilim"]
+    },
+    {
+      "id": 13,
+      "title": "Interstellar",
+      "overview": "Dünya'nın geleceği tehlikede olduğunda, bir grup astronot uzayda yeni bir yuva aramak için yolculuğa çıkar.",
+      "poster_path": "/static/img/interstellar.jpg",
+      "rating": 8.6,
+      "type": "Film",
+      "genres": ["Macera", "Bilim Kurgu", "Drama"]
+    },
+    {
+      "id": 14,
+      "title": "The Office",
+      "overview": "Scranton, Pennsylvania'daki bir kağıt şirketinde çalışan sıradan ofis çalışanlarının günlük yaşamlarını anlatan komedi dizisi.",
+      "poster_path": "/static/img/the_office.jpg",
+      "rating": 8.9,
+      "type": "TV Show",
+      "genres": ["Komedi"]
+    },
+    {
+      "id": 15,
+      "title": "The Dark Knight",
+      "overview": "Batman, Joker'in Gotham City'de yarattığı kaosu durdurmak için mücadele eder.",
+      "poster_path": "/static/img/the_dark_knight.jpg",
+      "rating": 9.0,
+      "type": "Film",
+      "genres": ["Aksiyon", "Suç", "Drama"]
     }
   ]
 }
