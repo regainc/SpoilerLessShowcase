@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultContainer = document.getElementById('result-container');
     const loadingSpinner = document.getElementById('loading-spinner');
     const autocompleteContainer = document.getElementById('autocomplete-container');
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
 
     searchInput.addEventListener('input', debounce(handleAutocomplete, 300));
+    darkModeToggle.addEventListener('click', toggleDarkMode);
 
     searchForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     const data = await response.json();
                     displayResult(data);
+                    smoothScrollToResult();
                 } else {
                     throw new Error('No results found');
                 }
@@ -47,21 +50,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const genres = data.genres ? data.genres.join(', ') : 'N/A';
 
         resultContainer.innerHTML = `
-            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl opacity-0 transform translate-y-4">
                 <div class="md:flex">
                     <div class="md:flex-shrink-0">
                         <img src="${imageSrc}" alt="${title}" class="h-48 w-full object-cover md:h-full md:w-48" onerror="this.onerror=null; this.src='/static/img/placeholder.svg'; displayImageError();">
                     </div>
                     <div class="p-8">
-                        <div class="uppercase tracking-wide text-sm text-yellow-400 font-semibold">${type}</div>
+                        <div class="uppercase tracking-wide text-sm text-accent font-semibold">${type}</div>
                         <h2 class="mt-1 text-2xl font-bold text-white leading-tight">${title}</h2>
                         <p class="mt-2 text-gray-300">${overview}</p>
                         <div class="mt-4">
-                            <span class="text-yellow-400 font-bold">Puan:</span>
+                            <span class="text-accent font-bold">Puan:</span>
                             <span class="text-white">${rating}</span>
                         </div>
                         <div class="mt-2">
-                            <span class="text-yellow-400 font-bold">Türler:</span>
+                            <span class="text-accent font-bold">Türler:</span>
                             <span class="text-white">${genres}</span>
                         </div>
                     </div>
@@ -69,16 +72,28 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         resultContainer.classList.remove('hidden');
+        
+        // Trigger reflow to ensure the animation runs
+        resultContainer.offsetHeight;
+        
+        // Add animation classes
+        resultContainer.firstElementChild.classList.remove('opacity-0', 'translate-y-4');
     }
 
     function displayError(message) {
         resultContainer.innerHTML = `
-            <div class="bg-red-900 border border-red-400 text-red-100 px-4 py-3 rounded relative" role="alert">
+            <div class="bg-red-900 border border-red-400 text-red-100 px-4 py-3 rounded relative opacity-0 transform translate-y-4" role="alert">
                 <strong class="font-bold">Error:</strong>
                 <span class="block sm:inline">${message}</span>
             </div>
         `;
         resultContainer.classList.remove('hidden');
+        
+        // Trigger reflow to ensure the animation runs
+        resultContainer.offsetHeight;
+        
+        // Add animation classes
+        resultContainer.firstElementChild.classList.remove('opacity-0', 'translate-y-4');
     }
 
     function displayImageError() {
@@ -129,6 +144,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 searchForm.dispatchEvent(new Event('submit'));
             });
         });
+    }
+
+    function smoothScrollToResult() {
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('light-mode');
+        const icon = darkModeToggle.querySelector('i');
+        if (document.body.classList.contains('light-mode')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
     }
 
     function debounce(func, delay) {
