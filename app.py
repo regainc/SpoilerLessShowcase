@@ -7,7 +7,7 @@ app = Flask(__name__)
 TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
 
-def generate_custom_description(title, media_type):
+def generate_custom_description(title, media_type, tmdb_overview):
     descriptions = {
         "Game of Thrones": "Yedi krallığın kontrolü için mücadele eden aileler, entrikalar, savaşlar ve ejderhalar. Epik bir fantezi dünyasında geçen bu dizi, izleyiciyi büyüleyici bir maceraya sürüklüyor.",
         "Stranger Things": "1980'lerde geçen bu dizi, küçük bir kasabada kaybolan bir çocuğu arayan arkadaşlarının, doğaüstü güçlere sahip gizemli bir kızla tanışmasını konu alıyor.",
@@ -19,7 +19,16 @@ def generate_custom_description(title, media_type):
         "The Matrix": "Gerçek dünyanın aslında bir simülasyon olduğunu keşfeden bir bilgisayar programcısının, insanlığı kurtarma mücadelesini anlatan devrim niteliğinde bir bilim kurgu filmi.",
         "Forrest Gump": "Saf ve iyi kalpli bir adamın, 20. yüzyılın önemli olaylarına tanıklık ederken yaşadığı olağanüstü hayat hikayesini anlatan, duygu yüklü bir komedi-dram filmi."
     }
-    return descriptions.get(title, f"Bu {'dizi' if media_type == 'tv' else 'film'} hakkında kısa ve spoiler içermeyen bir açıklama bulunmuyor.")
+    custom_description = descriptions.get(title)
+    if custom_description:
+        return custom_description
+    elif tmdb_overview:
+        # Limit the TMDB overview to 2-3 sentences to avoid potential spoilers
+        sentences = tmdb_overview.split('.')
+        limited_overview = '.'.join(sentences[:3]) + '.'
+        return limited_overview
+    else:
+        return f"Bu {'dizi' if media_type == 'tv' else 'film'} hakkında kısa ve spoiler içermeyen bir açıklama bulunmuyor."
 
 def search_external_api(query):
     search_url = f"{TMDB_BASE_URL}/search/multi"
@@ -33,8 +42,14 @@ def search_external_api(query):
         results = response.json()['results']
         if results:
             result = results[0]
-            # Replace the overview with a custom, spoiler-free description
-            result['overview'] = generate_custom_description(result.get('title') or result.get('name'), result['media_type'])
+            # Get the TMDB overview
+            tmdb_overview = result.get('overview', '')
+            # Generate a custom or limited description
+            result['overview'] = generate_custom_description(
+                result.get('title') or result.get('name'),
+                result['media_type'],
+                tmdb_overview
+            )
             
             # Include genre information
             if result['media_type'] in ['movie', 'tv']:
