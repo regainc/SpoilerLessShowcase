@@ -36,9 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function displayResult(data) {
+        const imageSrc = data.poster_path || '/static/img/placeholder.svg';
         resultContainer.innerHTML = `
             <div class="flex flex-col md:flex-row">
-                <img src="${data.poster_path}" alt="${data.title}" class="w-full md:w-1/3 rounded-lg shadow-lg">
+                <img src="${imageSrc}" alt="${data.title}" class="w-full md:w-1/3 rounded-lg shadow-lg" onerror="this.src='/static/img/placeholder.svg'">
                 <div class="mt-4 md:mt-0 md:ml-6 flex-1">
                     <h2 class="text-2xl font-bold mb-2 text-yellow-400">${data.title}</h2>
                     <p class="text-gray-300 mb-4">${data.overview}</p>
