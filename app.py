@@ -19,9 +19,9 @@ def search_external_api(query):
         results = response.json()['results']
         if results:
             result = results[0]
-            # Increase overview character limit to 560
+            # Limit overview to 150 characters
             if 'overview' in result:
-                result['overview'] = (result['overview'][:557] + '...') if len(result['overview']) > 560 else result['overview']
+                result['overview'] = result['overview'][:147] + '...' if len(result['overview']) > 150 else result['overview']
             
             # Include genre information
             if result['media_type'] in ['movie', 'tv']:
@@ -34,6 +34,12 @@ def search_external_api(query):
                 if genre_response.status_code == 200:
                     genre_data = genre_response.json()
                     result['genres'] = [genre['name'] for genre in genre_data.get('genres', [])]
+                    
+                    # Add tagline for movies or name for TV shows
+                    if result['media_type'] == 'movie':
+                        result['tagline'] = genre_data.get('tagline', '')
+                    else:
+                        result['tagline'] = genre_data.get('name', '')
             
             return result
     return None
@@ -73,6 +79,22 @@ def autocomplete():
         return jsonify(suggestions)
     
     return jsonify([])
+
+@app.route('/details/<id>', methods=['GET'])
+def get_details(id):
+    media_type = request.args.get('media_type', 'movie')
+    details_url = f"{TMDB_BASE_URL}/{media_type}/{id}"
+    params = {
+        'api_key': TMDB_API_KEY,
+        'language': 'tr-TR'
+    }
+    response = requests.get(details_url, params=params)
+    
+    if response.status_code == 200:
+        details = response.json()
+        return jsonify(details)
+    
+    return jsonify({'error': 'Details not found'}), 404
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

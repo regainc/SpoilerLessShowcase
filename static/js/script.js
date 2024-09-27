@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const type = data.media_type === 'tv' ? 'TV Show' : 'Film';
         const rating = data.vote_average ? data.vote_average.toFixed(1) : 'N/A';
         const genres = data.genres ? data.genres.join(', ') : 'N/A';
+        const tagline = data.tagline || '';
 
         resultContainer.innerHTML = `
             <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl opacity-0 transform translate-y-4">
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="p-8">
                         <div class="uppercase tracking-wide text-sm text-accent font-semibold">${type}</div>
                         <h2 class="mt-1 text-2xl font-bold text-white leading-tight">${title}</h2>
+                        <p class="mt-2 text-gray-300 italic">"${tagline}"</p>
                         <p class="mt-2 text-gray-300">${overview}</p>
                         <div class="mt-4">
                             <span class="text-accent font-bold">Puan:</span>
@@ -67,9 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="text-accent font-bold">Türler:</span>
                             <span class="text-white">${genres}</span>
                         </div>
+                        <button id="more-details-btn" class="mt-4 bg-accent text-gray-900 px-4 py-2 rounded hover:bg-accent-hover transition-colors duration-300" data-id="${data.id}" data-media-type="${data.media_type}">
+                            More Details
+                        </button>
                     </div>
                 </div>
             </div>
+            <div id="details-container" class="mt-8 hidden"></div>
         `;
         resultContainer.classList.remove('hidden');
         
@@ -78,6 +84,46 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Add animation classes
         resultContainer.firstElementChild.classList.remove('opacity-0', 'translate-y-4');
+
+        // Add event listener for the "More Details" button
+        document.getElementById('more-details-btn').addEventListener('click', fetchMoreDetails);
+    }
+
+    async function fetchMoreDetails(e) {
+        const id = e.target.dataset.id;
+        const mediaType = e.target.dataset.mediaType;
+        const detailsContainer = document.getElementById('details-container');
+
+        try {
+            const response = await fetch(`/details/${id}?media_type=${mediaType}`);
+            if (response.ok) {
+                const data = await response.json();
+                displayMoreDetails(data, detailsContainer);
+            } else {
+                throw new Error('Failed to fetch details');
+            }
+        } catch (error) {
+            console.error('Error fetching more details:', error);
+            detailsContainer.innerHTML = '<p class="text-red-500">Failed to load more details. Please try again later.</p>';
+        }
+    }
+
+    function displayMoreDetails(data, container) {
+        const releaseDate = data.release_date || data.first_air_date || 'N/A';
+        const runtime = data.runtime ? `${data.runtime} minutes` : (data.episode_run_time ? `${data.episode_run_time[0]} minutes per episode` : 'N/A');
+        const status = data.status || 'N/A';
+        const productionCompanies = data.production_companies ? data.production_companies.map(company => company.name).join(', ') : 'N/A';
+
+        container.innerHTML = `
+            <div class="bg-gray-800 rounded-lg p-6 animate-fade-in">
+                <h3 class="text-xl font-bold text-accent mb-4">Additional Details</h3>
+                <p><span class="font-bold">Release Date:</span> ${releaseDate}</p>
+                <p><span class="font-bold">Runtime:</span> ${runtime}</p>
+                <p><span class="font-bold">Status:</span> ${status}</p>
+                <p><span class="font-bold">Production Companies:</span> ${productionCompanies}</p>
+            </div>
+        `;
+        container.classList.remove('hidden');
     }
 
     function displayError(message) {
