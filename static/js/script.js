@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="text-white">${genres}</span>
                         </div>
                         <button id="more-details-btn" class="mt-4 bg-accent text-gray-900 px-4 py-2 rounded hover:bg-accent-hover transition-colors duration-300" data-id="${data.id}" data-media-type="${data.media_type}">
-                            More Details
+                            Daha Fazla Bilgi
                         </button>
                     </div>
                 </div>
@@ -104,23 +104,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Error fetching more details:', error);
-            detailsContainer.innerHTML = '<p class="text-red-500">Failed to load more details. Please try again later.</p>';
+            detailsContainer.innerHTML = '<p class="text-red-500">Daha fazla bilgi yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.</p>';
         }
     }
 
     function displayMoreDetails(data, container) {
         const releaseDate = data.release_date || data.first_air_date || 'N/A';
-        const runtime = data.runtime ? `${data.runtime} minutes` : (data.episode_run_time ? `${data.episode_run_time[0]} minutes per episode` : 'N/A');
+        const runtime = data.runtime ? `${data.runtime} dakika` : (data.episode_run_time ? `Bölüm başına ${data.episode_run_time[0]} dakika` : 'N/A');
         const status = data.status || 'N/A';
         const productionCompanies = data.production_companies ? data.production_companies.map(company => company.name).join(', ') : 'N/A';
 
         container.innerHTML = `
             <div class="bg-gray-800 rounded-lg p-6 animate-fade-in">
-                <h3 class="text-xl font-bold text-accent mb-4">Additional Details</h3>
-                <p><span class="font-bold">Release Date:</span> ${releaseDate}</p>
-                <p><span class="font-bold">Runtime:</span> ${runtime}</p>
-                <p><span class="font-bold">Status:</span> ${status}</p>
-                <p><span class="font-bold">Production Companies:</span> ${productionCompanies}</p>
+                <h3 class="text-xl font-bold text-accent mb-4">Ek Bilgiler</h3>
+                <p><span class="font-bold">Yayın Tarihi:</span> ${releaseDate}</p>
+                <p><span class="font-bold">Süre:</span> ${runtime}</p>
+                <p><span class="font-bold">Durum:</span> ${status}</p>
+                <p><span class="font-bold">Yapım Şirketleri:</span> ${productionCompanies}</p>
             </div>
         `;
         container.classList.remove('hidden');
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayError(message) {
         resultContainer.innerHTML = `
             <div class="bg-red-900 border border-red-400 text-red-100 px-4 py-3 rounded relative opacity-0 transform translate-y-4" role="alert">
-                <strong class="font-bold">Error:</strong>
+                <strong class="font-bold">Hata:</strong>
                 <span class="block sm:inline">${message}</span>
             </div>
         `;

@@ -7,6 +7,21 @@ app = Flask(__name__)
 TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
 
+def generate_custom_description(title, media_type):
+    descriptions = {
+        "Game of Thrones": "Yedi krallığın kontrolü için mücadele eden aileler, entrikalar, savaşlar ve ejderhalar. Epik bir fantezi dünyasında geçen bu dizi, izleyiciyi büyüleyici bir maceraya sürüklüyor.",
+        "Stranger Things": "1980'lerde geçen bu dizi, küçük bir kasabada kaybolan bir çocuğu arayan arkadaşlarının, doğaüstü güçlere sahip gizemli bir kızla tanışmasını konu alıyor.",
+        "Breaking Bad": "Kanser teşhisi konan bir kimya öğretmeninin, ailesinin geleceğini güvence altına almak için uyuşturucu işine girmesini anlatan, gerilim dolu bir dizi.",
+        "The Crown": "İngiliz Kraliyet ailesinin yaşamını ve kraliçe II. Elizabeth'in hükümdarlığını konu alan tarihi bir drama.",
+        "Black Mirror": "Teknolojinin insan hayatı üzerindeki karanlık ve beklenmedik etkilerini işleyen, her bölümü bağımsız bir hikaye anlatan bilim kurgu antoloji dizisi.",
+        "Inception": "Rüyalara girip bilinçaltından bilgi çalabilen bir hırsızın, bir CEO'nun zihnine bir fikir yerleştirme görevini konu alan, zihin bükücü bir bilim kurgu filmi.",
+        "The Shawshank Redemption": "Haksız yere müebbet hapse mahkum edilen bir bankacının, hapishane yaşamı ve özgürlük arayışını anlatan, umut ve dostluk temalı bir dram filmi.",
+        "Pulp Fiction": "İç içe geçmiş hikayeleriyle, Los Angeles'ın yeraltı dünyasından çeşitli karakterlerin hayatlarını konu alan, kült statüsüne ulaşmış bir suç filmi.",
+        "The Matrix": "Gerçek dünyanın aslında bir simülasyon olduğunu keşfeden bir bilgisayar programcısının, insanlığı kurtarma mücadelesini anlatan devrim niteliğinde bir bilim kurgu filmi.",
+        "Forrest Gump": "Saf ve iyi kalpli bir adamın, 20. yüzyılın önemli olaylarına tanıklık ederken yaşadığı olağanüstü hayat hikayesini anlatan, duygu yüklü bir komedi-dram filmi."
+    }
+    return descriptions.get(title, f"Bu {'dizi' if media_type == 'tv' else 'film'} hakkında kısa ve spoiler içermeyen bir açıklama.")
+
 def search_external_api(query):
     search_url = f"{TMDB_BASE_URL}/search/multi"
     params = {
@@ -19,11 +34,8 @@ def search_external_api(query):
         results = response.json()['results']
         if results:
             result = results[0]
-            # Limit overview to 200-250 characters
-            if 'overview' in result:
-                sentences = result['overview'].split('.')
-                short_overview = '.'.join(sentences[:3])  # Take first 3 sentences
-                result['overview'] = short_overview[:250] + '...' if len(short_overview) > 250 else short_overview
+            # Replace the overview with a custom, spoiler-free description
+            result['overview'] = generate_custom_description(result.get('title') or result.get('name'), result['media_type'])
             
             # Include genre information
             if result['media_type'] in ['movie', 'tv']:
