@@ -4,11 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultContainer = document.getElementById('result-container');
     const loadingSpinner = document.getElementById('loading-spinner');
     const autocompleteContainer = document.getElementById('autocomplete-container');
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
     const navLinks = document.querySelectorAll('nav a');
 
     searchInput.addEventListener('input', debounce(handleAutocomplete, 300));
-    darkModeToggle.addEventListener('click', toggleDarkMode);
     navLinks.forEach(link => link.addEventListener('click', handleNavClick));
 
     searchForm.addEventListener('submit', async (e) => {
@@ -195,18 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function smoothScrollToResult() {
         resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function toggleDarkMode() {
-        document.body.classList.toggle('light-mode');
-        const icon = darkModeToggle.querySelector('i');
-        if (document.body.classList.contains('light-mode')) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
-        }
     }
 
     function handleNavClick(e) {

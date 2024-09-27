@@ -136,27 +136,3 @@ input[type="text"]:focus {
 .modern-search-bar button:hover {
     background-color: var(--accent-color-hover);
 }
-
-.dark-mode-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border: none;
-    padding: 0.5rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.dark-mode-toggle:hover {
-    background-color: var(--accent-color);
-    color: var(--bg-color);
-}
-
-body.light-mode {
-    --bg-color: #f0f0f0;
-    --text-color: #333333;
-    --card-bg: #ffffff;
-}
