@@ -1,5 +1,6 @@
 import json
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
+import os
 
 app = Flask(__name__)
 
@@ -29,6 +30,10 @@ def search():
         return jsonify(result)
     
     return jsonify({'error': 'No results found'}), 404
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(app.static_folder, filename)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
