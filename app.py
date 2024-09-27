@@ -1,50 +1,52 @@
-import json
-from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
+from flask import Flask, render_template, request, jsonify
+import requests
 
 app = Flask(__name__)
 
-def load_data():
-    with open('data.json', 'r') as f:
-        return json.load(f)
+TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
+TMDB_BASE_URL = "https://api.themoviedb.org/3"
 
-def search_local_data(query):
-    data = load_data()
-    query = query.lower()
-    for item in data['items']:
-        if query in item['title'].lower():
-            return item
+def search_external_api(query):
+    search_url = f"{TMDB_BASE_URL}/search/multi"
+    params = {
+        'api_key': TMDB_API_KEY,
+        'query': query,
+        'language': 'tr-TR'
+    }
+    response = requests.get(search_url, params=params)
+    if response.status_code == 200:
+        results = response.json()['results']
+        if results:
+            return results[0]  # Return the first result
     return None
 
-def generate_ai_analysis(item):
+def generate_instant_analysis(item):
     analysis = ""
-    if item['type'] == 'TV Show':
+    if item['media_type'] == 'tv':
         analysis += "Bu dizi, "
     else:
         analysis += "Bu film, "
 
-    if item['rating'] >= 9.0:
-        analysis += "izleyiciler tarafından olağanüstü beğenilen "
-    elif item['rating'] >= 8.0:
-        analysis += "oldukça popüler ve beğenilen "
-    else:
+    if item.get('vote_average', 0) >= 8.0:
+        analysis += "izleyiciler tarafından oldukça beğenilen "
+    elif item.get('vote_average', 0) >= 6.0:
         analysis += "izleyiciler tarafından genel olarak olumlu karşılanan "
+    else:
+        analysis += "izleyiciler arasında çeşitli tepkiler alan "
 
-    if 'Aksiyon' in item['genres']:
-        analysis += "heyecan dolu sahneleriyle dikkat çeken "
-    if 'Drama' in item['genres']:
+    genres = item.get('genre_ids', [])
+    if 28 in genres:  # Action
+        analysis += "aksiyon dolu sahneleriyle dikkat çeken "
+    if 18 in genres:  # Drama
         analysis += "duygusal derinliği olan "
-    if 'Komedi' in item['genres']:
+    if 35 in genres:  # Comedy
         analysis += "eğlenceli ve gülümseten "
-    if 'Bilim Kurgu' in item['genres']:
+    if 878 in genres:  # Science Fiction
         analysis += "geleceğe dair ilginç fikirler sunan "
 
-    analysis += f"bir yapım. {item['rating']} puanlık değerlendirmesiyle, "
-
-    if len(item['genres']) > 1:
-        analysis += f"{', '.join(item['genres'][:-1])} ve {item['genres'][-1]} türlerini başarıyla harmanlıyor."
-    else:
-        analysis += f"{item['genres'][0]} türünün güzel bir örneği."
+    analysis += f"bir yapım. {item.get('vote_average', 0)} puanlık değerlendirmesiyle, "
+    analysis += "izleyicilerin ilgisini çekmeyi başarıyor."
 
     return analysis
 
@@ -56,17 +58,13 @@ def index():
 def search():
     query = request.json.get('query')
     
-    result = search_local_data(query)
+    result = search_external_api(query)
     
     if result:
-        result['ai_analysis'] = generate_ai_analysis(result)
+        result['ai_analysis'] = generate_instant_analysis(result)
         return jsonify(result)
     
     return jsonify({'error': 'No results found'}), 404
-
-@app.route('/static/<path:filename>')
-def serve_static(filename):
-    return send_from_directory(app.static_folder, filename)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
