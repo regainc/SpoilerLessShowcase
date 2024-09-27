@@ -151,6 +151,7 @@ input[type="text"]:focus {
     transform: scale(0.9);
     transition: all 0.3s ease-in-out;
     font-family: 'Arial', sans-serif;
+    max-width: 90vw;
 }
 
 .popup-overlay.show .popup-content {
@@ -163,6 +164,10 @@ input[type="text"]:focus {
 
 .popup-content p {
     line-height: 1.6;
+}
+
+#close-popup:hover {
+    transform: scale(1.05);
 }
 
 @keyframes fade-in {

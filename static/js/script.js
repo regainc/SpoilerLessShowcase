@@ -108,17 +108,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const runtime = data.runtime ? `${data.runtime} dakika` : (data.episode_run_time ? `Bölüm başına ${data.episode_run_time[0]} dakika` : 'N/A');
         const status = data.status || 'N/A';
         const productionCompanies = data.production_companies ? data.production_companies.map(company => company.name).join(', ') : 'N/A';
+        const originalLanguage = data.original_language ? data.original_language.toUpperCase() : 'N/A';
+        const budget = data.budget ? `$${data.budget.toLocaleString()}` : 'N/A';
+        const seasons = data.number_of_seasons || 'N/A';
+        const popularity = data.popularity ? data.popularity.toFixed(1) : 'N/A';
 
         const popupContent = `
-            <div class="popup-content bg-gray-800 bg-opacity-90 rounded-lg p-8 border-4 border-accent shadow-2xl">
-                <h3 class="text-2xl font-bold text-accent mb-6">Ek Bilgiler</h3>
-                <div class="space-y-4">
-                    <p class="text-lg"><span class="font-semibold text-accent">Yayın Tarihi:</span> <span class="text-gray-200">${releaseDate}</span></p>
-                    <p class="text-lg"><span class="font-semibold text-accent">Süre:</span> <span class="text-gray-200">${runtime}</span></p>
-                    <p class="text-lg"><span class="font-semibold text-accent">Durum:</span> <span class="text-gray-200">${status}</span></p>
-                    <p class="text-lg"><span class="font-semibold text-accent">Yapım Şirketleri:</span> <span class="text-gray-200">${productionCompanies}</span></p>
+            <div class="popup-content bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg p-8 border-4 border-accent shadow-2xl max-w-4xl w-full mx-4">
+                <h3 class="text-3xl font-bold text-accent mb-6">Ek Bilgiler</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <p class="text-lg"><span class="font-semibold text-accent">📅 Yayın Tarihi:</span> <span class="text-gray-200">${releaseDate}</span></p>
+                        <p class="text-lg"><span class="font-semibold text-accent">⏱️ Süre:</span> <span class="text-gray-200">${runtime}</span></p>
+                        <p class="text-lg"><span class="font-semibold text-accent">🎬 Durum:</span> <span class="text-gray-200">${status}</span></p>
+                        <p class="text-lg"><span class="font-semibold text-accent">🏢 Yapım Şirketleri:</span> <span class="text-gray-200">${productionCompanies}</span></p>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-lg"><span class="font-semibold text-accent">🌐 Orijinal Dil:</span> <span class="text-gray-200">${originalLanguage}</span></p>
+                        <p class="text-lg"><span class="font-semibold text-accent">${data.media_type === 'movie' ? '💰 Bütçe:' : '🔢 Sezon Sayısı:'}</span> <span class="text-gray-200">${data.media_type === 'movie' ? budget : seasons}</span></p>
+                        <p class="text-lg"><span class="font-semibold text-accent">📊 Popülerlik:</span> <span class="text-gray-200">${popularity}</span></p>
+                    </div>
                 </div>
-                <button id="close-popup" class="mt-8 bg-accent text-gray-900 px-6 py-3 rounded-full text-lg font-bold hover:bg-accent-hover transition-colors duration-300">Kapat</button>
+                <button id="close-popup" class="mt-8 bg-accent text-gray-900 px-6 py-3 rounded-full text-lg font-bold hover:bg-accent-hover transition-colors duration-300 hover:scale-105 transform">Kapat</button>
             </div>
         `;
 
@@ -132,12 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
             closePopup(popupOverlay);
         });
 
-        // Add show class after a short delay to trigger the transition
         setTimeout(() => {
             popupOverlay.classList.add('show');
         }, 10);
 
-        // Close popup when clicking outside the content
         popupOverlay.addEventListener('click', (e) => {
             if (e.target === popupOverlay) {
                 closePopup(popupOverlay);
