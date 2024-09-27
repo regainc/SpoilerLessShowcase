@@ -6,9 +6,12 @@
     <title>TV Show and Movie Info</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
-    <header class="bg-blue-600 text-white py-4">
-        <div class="container mx-auto px-4">
+<body class="bg-black text-yellow-400 min-h-screen flex flex-col">
+    <header class="bg-yellow-400 text-black py-4">
+        <div class="container mx-auto px-4 flex items-center">
+            <svg class="w-8 h-8 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
+            </svg>
             <h1 class="text-3xl font-bold">TV Show and Movie Info</h1>
         </div>
     </header>
@@ -17,9 +20,12 @@
         <form id="search-form" class="mb-8">
             <div class="flex">
                 <input type="text" id="search-input" placeholder="Enter a TV show or movie title" required
-                       class="flex-grow px-4 py-2 rounded-l-lg border-t border-b border-l text-gray-800 border-gray-200 bg-white">
+                       class="flex-grow px-4 py-2 rounded-l-lg border-t border-b border-l text-black border-yellow-400 bg-white">
                 <button type="submit"
-                        class="px-8 rounded-r-lg bg-blue-600 text-white font-bold p-4 uppercase border-blue-600 border-t border-b border-r">
+                        class="px-8 rounded-r-lg bg-yellow-400 text-black font-bold p-4 uppercase border-yellow-400 border-t border-b border-r hover:bg-yellow-500">
+                    <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
                     Search
                 </button>
             </div>
@@ -29,11 +35,11 @@
             <div class="spinner"></div>
         </div>
 
-        <div id="result-container" class="hidden bg-white shadow-md rounded-lg p-6"></div>
+        <div id="result-container" class="hidden bg-gray-900 shadow-md rounded-lg p-6 border border-yellow-400"></div>
     </main>
 
-    <footer class="bg-gray-200 py-4">
-        <div class="container mx-auto px-4 text-center text-gray-600">
+    <footer class="bg-yellow-400 text-black py-4">
+        <div class="container mx-auto px-4 text-center">
             &copy; 2023 TV Show and Movie Info. All rights reserved.
         </div>
     </footer>

@@ -3,47 +3,47 @@
     {
       "id": 1,
       "title": "Stranger Things",
-      "overview": "When a young boy disappears, his mother, a police chief, and his friends must confront terrifying forces in order to get him back.",
+      "overview": "Genç bir çocuk kaybolduğunda, annesi, polis şefi ve arkadaşları onu geri getirmek için korkunç güçlerle yüzleşmek zorunda kalır.",
       "poster_path": "/static/img/stranger_things.jpg",
       "rating": 8.7,
       "type": "TV Show",
-      "genres": ["Drama", "Fantasy", "Horror"]
+      "genres": ["Drama", "Fantezi", "Korku"]
     },
     {
       "id": 2,
       "title": "Inception",
-      "overview": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+      "overview": "Rüya paylaşım teknolojisi aracılığıyla kurumsal sırları çalan bir hırsıza, bir CEO'nun zihnine bir fikir yerleştirme görevi verilir.",
       "poster_path": "/static/img/inception.jpg",
       "rating": 8.8,
-      "type": "Movie",
-      "genres": ["Action", "Adventure", "Sci-Fi"]
+      "type": "Film",
+      "genres": ["Aksiyon", "Macera", "Bilim Kurgu"]
     },
     {
       "id": 3,
       "title": "Breaking Bad",
-      "overview": "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future.",
+      "overview": "Ameliyat edilemez akciğer kanseri teşhisi konan bir lise kimya öğretmeni, ailesinin geleceğini güvence altına almak için metamfetamin üretmeye ve satmaya başlar.",
       "poster_path": "/static/img/breaking_bad.jpg",
       "rating": 9.5,
       "type": "TV Show",
-      "genres": ["Crime", "Drama", "Thriller"]
+      "genres": ["Suç", "Drama", "Gerilim"]
     },
     {
       "id": 4,
       "title": "The Shawshank Redemption",
-      "overview": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+      "overview": "Hapishaneye düşen iki adam, yıllar içinde birbirleriyle bağ kurar ve ortak nezaket eylemleriyle teselli ve nihai kurtuluş bulur.",
       "poster_path": "/static/img/shawshank_redemption.jpg",
       "rating": 9.3,
-      "type": "Movie",
+      "type": "Film",
       "genres": ["Drama"]
     },
     {
       "id": 5,
       "title": "Friends",
-      "overview": "Follows the personal and professional lives of six twenty to thirty-something-year-old friends living in Manhattan.",
+      "overview": "Manhattan'da yaşayan yirmili ve otuzlu yaşlarındaki altı arkadaşın kişisel ve profesyonel hayatlarını takip eder.",
       "poster_path": "/static/img/friends.jpg",
       "rating": 8.9,
       "type": "TV Show",
-      "genres": ["Comedy", "Romance"]
+      "genres": ["Komedi", "Romantik"]
     }
   ]
 }
