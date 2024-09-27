@@ -19,23 +19,63 @@
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <form id="search-form" class="mb-8 relative">
-            <div class="modern-search-bar">
-                <input type="text" id="search-input" placeholder="Enter a TV show or movie title" required>
-                <button type="submit">
-                    <i class="fas fa-search mr-2"></i>
-                    Search
-                </button>
-            </div>
-            <div id="autocomplete-container" class="absolute w-full mt-1 z-10"></div>
-        </form>
-
-        <div id="loading-spinner" class="hidden flex justify-center items-center">
-            <div class="spinner"></div>
+    <nav class="bg-accent text-gray-900 py-4">
+        <div class="container mx-auto px-4">
+            <ul class="flex justify-center space-x-6">
+                <li><a href="#search" class="hover:text-white">Search</a></li>
+                <li><a href="#about" class="hover:text-white">About Us</a></li>
+                <li><a href="#suggestions" class="hover:text-white">Suggestions</a></li>
+            </ul>
         </div>
+    </nav>
 
-        <div id="result-container" class="hidden"></div>
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <section id="search" class="mb-12">
+            <form id="search-form" class="mb-8 relative">
+                <div class="modern-search-bar">
+                    <input type="text" id="search-input" placeholder="Enter a TV show or movie title" required>
+                    <button type="submit">
+                        <i class="fas fa-search mr-2"></i>
+                        Search
+                    </button>
+                </div>
+                <div id="autocomplete-container" class="absolute w-full mt-1 z-10"></div>
+            </form>
+
+            <div id="loading-spinner" class="hidden flex justify-center items-center">
+                <div class="spinner"></div>
+            </div>
+
+            <div id="result-container" class="hidden"></div>
+        </section>
+
+        <section id="about" class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">About Us</h2>
+            <p class="text-gray-300">
+                We are passionate about providing spoiler-free information about TV shows and movies. Our goal is to help you discover new content without ruining the experience. We use custom descriptions to give you a taste of what to expect without giving away any crucial plot points.
+            </p>
+        </section>
+
+        <section id="suggestions">
+            <h2 class="text-2xl font-bold mb-4">Suggestions</h2>
+            <p class="text-gray-300 mb-4">
+                Looking for something to watch? Here are some popular titles you might enjoy:
+            </p>
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <li class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-xl font-bold mb-2">Game of Thrones</h3>
+                    <p class="text-gray-400">Epic fantasy series with dragons, political intrigue, and battles for power.</p>
+                </li>
+                <li class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-xl font-bold mb-2">Stranger Things</h3>
+                    <p class="text-gray-400">1980s-set sci-fi horror series featuring a group of kids facing supernatural forces.</p>
+                </li>
+                <li class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-xl font-bold mb-2">Breaking Bad</h3>
+                    <p class="text-gray-400">Gripping crime drama about a chemistry teacher turned methamphetamine producer.</p>
+                </li>
+            </ul>
+        </section>
     </main>
 
     <footer class="bg-accent text-gray-900 py-4">

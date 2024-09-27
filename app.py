@@ -20,7 +20,7 @@ def generate_custom_description(title, media_type):
         "The Matrix": "Gerçek dünyanın aslında bir simülasyon olduğunu keşfeden bir bilgisayar programcısının, insanlığı kurtarma mücadelesini anlatan devrim niteliğinde bir bilim kurgu filmi.",
         "Forrest Gump": "Saf ve iyi kalpli bir adamın, 20. yüzyılın önemli olaylarına tanıklık ederken yaşadığı olağanüstü hayat hikayesini anlatan, duygu yüklü bir komedi-dram filmi."
     }
-    return descriptions.get(title, f"Bu {'dizi' if media_type == 'tv' else 'film'} hakkında kısa ve spoiler içermeyen bir açıklama.")
+    return descriptions.get(title, f"Bu {'dizi' if media_type == 'tv' else 'film'} hakkında kısa ve spoiler içermeyen bir açıklama bulunmuyor.")
 
 def search_external_api(query):
     search_url = f"{TMDB_BASE_URL}/search/multi"
