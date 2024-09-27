@@ -3,8 +3,8 @@
 :root {
     --bg-color: #121212;
     --text-color: #ffffff;
-    --accent-color: #00bcd4;
-    --accent-color-hover: #00acc1;
+    --accent-color: #FFD700;
+    --accent-color-hover: #FFC000;
     --card-bg: #1e1e1e;
 }
 
@@ -20,7 +20,7 @@ body {
 }
 
 .spinner {
-    border: 4px solid rgba(0, 188, 212, 0.3);
+    border: 4px solid rgba(255, 215, 0, 0.3);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -42,7 +42,7 @@ body {
 .btn-primary:hover {
     background-color: var(--accent-color-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 188, 212, 0.2);
+    box-shadow: 0 4px 6px rgba(255, 215, 0, 0.2);
 }
 
 .card {
@@ -54,7 +54,7 @@ body {
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 188, 212, 0.2);
+    box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
 }
 
 .text-accent {
@@ -75,7 +75,7 @@ input[type="text"] {
 input[type="text"]:focus {
     outline: none;
     border-color: var(--accent-color-hover);
-    box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.2);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
 }
 
 #result-container {

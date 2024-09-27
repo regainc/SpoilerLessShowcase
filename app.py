@@ -19,9 +19,11 @@ def search_external_api(query):
         results = response.json()['results']
         if results:
             result = results[0]
-            # Limit overview to 150 characters
+            # Limit overview to 200-250 characters
             if 'overview' in result:
-                result['overview'] = result['overview'][:147] + '...' if len(result['overview']) > 150 else result['overview']
+                sentences = result['overview'].split('.')
+                short_overview = '.'.join(sentences[:3])  # Take first 3 sentences
+                result['overview'] = short_overview[:250] + '...' if len(short_overview) > 250 else short_overview
             
             # Include genre information
             if result['media_type'] in ['movie', 'tv']:
