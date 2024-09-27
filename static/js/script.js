@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             </div>
-            <div id="details-container" class="mt-8 hidden"></div>
         `;
         resultContainer.classList.remove('hidden');
         
@@ -89,38 +88,66 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchMoreDetails(e) {
         const id = e.target.dataset.id;
         const mediaType = e.target.dataset.mediaType;
-        const detailsContainer = document.getElementById('details-container');
 
         try {
             const response = await fetch(`/details/${id}?media_type=${mediaType}`);
             if (response.ok) {
                 const data = await response.json();
-                displayMoreDetails(data, detailsContainer);
+                displayMoreDetails(data);
             } else {
                 throw new Error('Failed to fetch details');
             }
         } catch (error) {
             console.error('Error fetching more details:', error);
-            detailsContainer.innerHTML = '<p class="text-red-500">Daha fazla bilgi yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.</p>';
+            alert('Daha fazla bilgi yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
         }
     }
 
-    function displayMoreDetails(data, container) {
+    function displayMoreDetails(data) {
         const releaseDate = data.release_date || data.first_air_date || 'N/A';
         const runtime = data.runtime ? `${data.runtime} dakika` : (data.episode_run_time ? `Bölüm başına ${data.episode_run_time[0]} dakika` : 'N/A');
         const status = data.status || 'N/A';
         const productionCompanies = data.production_companies ? data.production_companies.map(company => company.name).join(', ') : 'N/A';
 
-        container.innerHTML = `
-            <div class="bg-gray-800 rounded-lg p-6 animate-fade-in">
+        const popupContent = `
+            <div class="popup-content bg-gray-800 rounded-lg p-6 animate-fade-in">
                 <h3 class="text-xl font-bold text-accent mb-4">Ek Bilgiler</h3>
                 <p><span class="font-bold">Yayın Tarihi:</span> ${releaseDate}</p>
                 <p><span class="font-bold">Süre:</span> ${runtime}</p>
                 <p><span class="font-bold">Durum:</span> ${status}</p>
                 <p><span class="font-bold">Yapım Şirketleri:</span> ${productionCompanies}</p>
+                <button id="close-popup" class="mt-4 bg-accent text-gray-900 px-4 py-2 rounded hover:bg-accent-hover transition-colors duration-300">Kapat</button>
             </div>
         `;
-        container.classList.remove('hidden');
+
+        const popupOverlay = document.createElement('div');
+        popupOverlay.className = 'popup-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        popupOverlay.innerHTML = popupContent;
+
+        document.body.appendChild(popupOverlay);
+
+        document.getElementById('close-popup').addEventListener('click', () => {
+            document.body.removeChild(popupOverlay);
+        });
+
+        // Add show class after a short delay to trigger the transition
+        setTimeout(() => {
+            popupOverlay.classList.add('show');
+        }, 10);
+
+        // Close popup when clicking outside the content
+        popupOverlay.addEventListener('click', (e) => {
+            if (e.target === popupOverlay) {
+                closePopup(popupOverlay);
+            }
+        });
+    }
+
+    function closePopup(popupOverlay) {
+        popupOverlay.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(popupOverlay);
+        }, 300); // Wait for the transition to complete before removing the element
     }
 
     function displayError(message) {
